@@ -35,7 +35,6 @@ namespace MicroHIDExtended
             eventHandlers = new EventHandlers(this);
             Exiled.Events.Handlers.Server.RoundStarted += eventHandlers.OnRoundStarted;
             Exiled.Events.Handlers.Server.WaitingForPlayers += eventHandlers.OnWaitingForPlayers;
-
             base.OnEnabled();
         }
 
