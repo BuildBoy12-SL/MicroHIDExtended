@@ -48,7 +48,8 @@ namespace MicroHIDExtended
         /// </summary>
         public void Start()
         {
-            coroutineHandle = Timing.RunCoroutine(Update());
+            if (!coroutineHandle.IsRunning)
+                coroutineHandle = Timing.RunCoroutine(Update());
         }
 
         /// <summary>
@@ -56,9 +57,10 @@ namespace MicroHIDExtended
         /// </summary>
         public void Stop()
         {
-            if (coroutineHandle.IsRunning)
-                Timing.KillCoroutines(coroutineHandle);
+            if (!coroutineHandle.IsRunning)
+                return;
 
+            Timing.KillCoroutines(coroutineHandle);
             pickupTimers.Clear();
             itemTimers.Clear();
         }

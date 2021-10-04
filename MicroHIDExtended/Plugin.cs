@@ -16,7 +16,6 @@ namespace MicroHIDExtended
     /// </summary>
     public class Plugin : Plugin<Config>
     {
-        private Harmony harmony;
         private EventHandlers eventHandlers;
 
         /// <summary>
@@ -31,15 +30,11 @@ namespace MicroHIDExtended
         public override void OnEnabled()
         {
             RechargeTick = new RechargeTick(this);
-            if (Round.IsStarted)
-                RechargeTick.Start();
+            RechargeTick.Start();
 
             eventHandlers = new EventHandlers(this);
             Exiled.Events.Handlers.Server.RoundStarted += eventHandlers.OnRoundStarted;
             Exiled.Events.Handlers.Server.WaitingForPlayers += eventHandlers.OnWaitingForPlayers;
-
-            harmony = new Harmony($"build.microHidExtended.{DateTime.UtcNow.Ticks}");
-            harmony.PatchAll();
 
             base.OnEnabled();
         }
@@ -47,9 +42,6 @@ namespace MicroHIDExtended
         /// <inheritdoc />
         public override void OnDisabled()
         {
-            harmony.UnpatchAll();
-            harmony = null;
-
             Exiled.Events.Handlers.Server.RoundStarted -= eventHandlers.OnRoundStarted;
             Exiled.Events.Handlers.Server.WaitingForPlayers -= eventHandlers.OnWaitingForPlayers;
             eventHandlers = null;
