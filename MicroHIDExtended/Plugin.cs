@@ -9,7 +9,6 @@ namespace MicroHIDExtended
 {
     using System;
     using Exiled.API.Features;
-    using HarmonyLib;
 
     /// <summary>
     /// The main plugin class.
@@ -24,7 +23,10 @@ namespace MicroHIDExtended
         public RechargeTick RechargeTick { get; private set; }
 
         /// <inheritdoc />
-        public override Version RequiredExiledVersion { get; } = new Version(3, 0, 0);
+        public override string Author => "Build";
+
+        /// <inheritdoc />
+        public override Version RequiredExiledVersion { get; } = new Version(5, 0, 0);
 
         /// <inheritdoc />
         public override void OnEnabled()
